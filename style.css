@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    /* sare item ko center me lane ke liye */
+    background-color: #f4e4ba;
+
+}
+
+.container{
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    min-height: 40vh;
+    width: 45vh;
+}
+form{
+    margin: 2rem 0 2rem 0;
+}
+
+form,select,input,button{
+    width: 100%;
+}
