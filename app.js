@@ -9,5 +9,20 @@ for(let select of dropdowns){
         newOption.innerText = currCode;
         newOption.value = currCode;
         select.append(newOption);
+        if(select.name==="from"&& currCode==="USD"){
+            newOption.selected="selected";
+        }else if(select.name==="To" && currCode==="INR"){
+            newOption.selected="selected";
+        }
     }
+    select.addEventListener("change",(evt)=>{
+        UpdateFlag(evt.target);
+    })
+}
+
+
+let UpdateFlag = (element)=>{
+    console.log(element);
+    let currCode = element.value;
+    console.log(currCode);
 }
