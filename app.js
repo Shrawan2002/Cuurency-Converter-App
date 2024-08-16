@@ -1,10 +1,9 @@
-const BASE_URL =
-"https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies";
+const BASE_URL ="https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies";
 
 const dropdowns = document.querySelectorAll(".dropdown select");
 let btn = document.querySelector("form button");
 let fromCurr = document.querySelector(".from select");
-let tocurr = document.querySelector(".to select");
+let toCurr = document.querySelector(".to select");
 // console.log(fromCurr);
 
 for(let select of dropdowns){
@@ -36,7 +35,7 @@ let UpdateFlag = (element)=>{
 
 }
 
-btn.addEventListener("click",(evt)=>{
+btn.addEventListener("click", async (evt)=>{
     evt.preventDefault();
     let amount = document.querySelector(".amount input");
     let amtVal = amount.value;
@@ -47,7 +46,9 @@ btn.addEventListener("click",(evt)=>{
         // interface (UI), meaning the value in the input field on the webpage will update instantly.
     }
     console.log(fromCurr.value);
-    console.log(tocurr.value);
-    
-
-})
+    console.log(toCurr.value);
+    let url = `${BASE_URL}/${fromCurr.value.toLowerCase()}/${toCurr.value.toLowerCase()}.json`;
+    let response = await fetch(url);
+    let responseData =  await response.json();
+    console.log(responseData);
+});
