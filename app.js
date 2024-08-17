@@ -1,10 +1,11 @@
-const BASE_URL ="https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies";
+const BASE_URL ="https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies";
 
 const dropdowns = document.querySelectorAll(".dropdown select");
 let btn = document.querySelector("form button");
 let fromCurr = document.querySelector(".from select");
 let toCurr = document.querySelector(".to select");
 // console.log(fromCurr);
+const msg = document.querySelector(".msg");
 
 for(let select of dropdowns){
     for(let currCode in countryList){
@@ -32,11 +33,20 @@ let UpdateFlag = (element)=>{
     let newSrc = `https://flagsapi.com/${countryCode}/flat/64.png`;
     let img =element.parentElement.querySelector("img");
     img.src = newSrc;
+    
 
 }
 
-btn.addEventListener("click", async (evt)=>{
+btn.addEventListener("click", (evt)=>{
     evt.preventDefault();
+    updateExchangeRate();
+
+});
+window.addEventListener("load", ()=>{
+    updateExchangeRate();
+})
+
+const updateExchangeRate = async ()=>{
     let amount = document.querySelector(".amount input");
     let amtVal = amount.value;
     // console.log(amtVal);
@@ -47,8 +57,14 @@ btn.addEventListener("click", async (evt)=>{
     }
     console.log(fromCurr.value);
     console.log(toCurr.value);
-    let url = `${BASE_URL}/${fromCurr.value.toLowerCase()}/${toCurr.value.toLowerCase()}.json`;
+    let url = `${BASE_URL}/${fromCurr.value.toLowerCase()}.json`;
     let response = await fetch(url);
     let responseData =  await response.json();
+    let rate = responseData[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()];
     console.log(responseData);
-});
+    console.log(rate);
+    let finalAmount = amtVal*rate;
+    console.log(finalAmount);
+    msg.innerText = `${amtVal} ${fromCurr.value} = ${finalAmount} ${toCurr.value}`;
+}
+
